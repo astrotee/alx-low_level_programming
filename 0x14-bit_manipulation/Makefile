@@ -6,4 +6,7 @@ CFLAGS=-Wall -Werror -Wextra -pedantic -g -std=gnu89
 1-main: *.c test/1-main.c
 	gcc  $(CFLAGS) $^ -o $@
 
+2-main: *.c test/2-main.c
+	gcc  $(CFLAGS) $^ -o $@
+
 
