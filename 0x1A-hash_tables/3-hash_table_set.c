@@ -23,18 +23,8 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	tmp->key = strdup(key);
 	tmp->value = strdup(value);
 	tmp->next = NULL;
-	while (*node && (*node)->key && strcmp((*node)->key, key) != 0)
-	{
-		if ((*node)->next)
-		{
-			*node = (*node)->next;
-			continue;
-		}
-		(*node)->next = tmp;
-		return (1);
-	}
-	if (*node)
-		free(*node);
+	if (*node && (*node)->key && strcmp((*node)->key, key) != 0)
+		tmp->next = *node;
 	*node = tmp;
 	return (1);
 }
