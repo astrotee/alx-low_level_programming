@@ -12,26 +12,43 @@
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
 	unsigned long index;
-	hash_node_t **node, *tmp;
+	hash_node_t **node, *lnode, *tmp;
 
 	if (ht == NULL)
 		return (0);
 	index = key_index((unsigned char *)key, ht->size);
 	node = &ht->array[index];
 
-	tmp = malloc(sizeof(hash_node_t));
-	if (tmp == NULL)
-		return (0);
-	tmp->key = strdup(key);
-	tmp->value = strdup(value);
-	if (!(tmp->key && tmp->value))
+	lnode = *node;
+	while (lnode)
 	{
-		free(tmp);
+		if (lnode->key && strcmp(lnode->key, key) == 0)
+		{
+			free(lnode->value);
+			lnode->value = strdup(value);
+			if (lnode->value == NULL)
+				return (0);
+			return (1);
+		}
+		lnode = lnode->next;
+	}
+	tmp = *node;
+	*node = malloc(sizeof(hash_node_t));
+	if (*node == NULL)
+		return (0);
+	(*node)->key = strdup(key);
+	if ((*node)->key == NULL)
+	{
+		free(*node);
 		return (0);
 	}
-	tmp->next = NULL;
-	if (*node && (*node)->key && strcmp((*node)->key, key) != 0)
-		tmp->next = *node;
-	*node = tmp;
+	(*node)->value = strdup(value);
+	if ((*node)->value == NULL)
+	{
+		free((*node)->key);
+		free(*node);
+		return (0);
+	}
+	(*node)->next = tmp;
 	return (1);
 }
