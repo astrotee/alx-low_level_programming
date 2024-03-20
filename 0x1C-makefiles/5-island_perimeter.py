@@ -4,11 +4,15 @@
 
 def island_perimeter(grid):
     """calculate the perimeter of an island"""
+    if not isinstance(grid, list) or len(grid) == 0:
+        return 0
     perimeter = 0
     height = len(grid)
     top, bottom, left, right = -1, -1, -1, -1
 
     for i, r in enumerate(grid):
+        if not isinstance(r, list):
+            return 0
         landi = 0
         bottom = i+1 if i+1 < height else -1
         while r[landi+1:].count(1) and (landi := r.index(1, landi+1)) != -1:
