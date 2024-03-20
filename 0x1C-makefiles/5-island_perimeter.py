@@ -16,7 +16,7 @@ def island_perimeter(grid):
         width = len(r)
         landi = 0
         bottom = i+1 if i+1 < height else -1
-        while r[landi+1:].count(1) and (landi := r.index(1, landi+1)) != -1:
+        while r[landi:].count(1) and (landi := r.index(1, landi)) != -1:
             left = landi - 1 if landi - 1 >= 0 else -1
             right = landi + 1 if landi + 1 < width else -1
             if left == -1 or r[left] == 0:
@@ -27,5 +27,6 @@ def island_perimeter(grid):
                 perimeter += 1
             if bottom == -1 or grid[bottom][landi] == 0:
                 perimeter += 1
+            landi += 1
         top = i
     return perimeter
