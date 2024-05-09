@@ -34,7 +34,7 @@ int binary_divide(int *array, size_t start, size_t end, int value)
 	printf("Searching in array:");
 	for (i = start; i <= (int) end; i++)
 	{
-		printf(" %d", i);
+		printf(" %d", array[i]);
 		if (i < (int) end)
 			printf(",");
 		else
