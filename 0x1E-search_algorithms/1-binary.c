@@ -13,7 +13,7 @@ int binary_search(int *array, size_t size, int value)
 	if (array == NULL)
 		return (-1);
 
-	return (binary_divide(array, 0, size, value));
+	return (binary_divide(array, 0, size - 1, value));
 }
 
 /**
@@ -28,14 +28,14 @@ int binary_divide(int *array, size_t start, size_t end, int value)
 {
 	int i, mid;
 
-	mid = start + ((end - start + 1) / 2) - 1;
+	mid = start + ((end - start) / 2);
 	if (start > end || mid < (int)start)
 		return (-1);
 	printf("Searching in array:");
-	for (i = start; i < (int) end; i++)
+	for (i = start; i <= (int) end; i++)
 	{
 		printf(" %d", i);
-		if (i < (int) end - 1)
+		if (i < (int) end)
 			printf(",");
 		else
 			printf("\n");
@@ -43,7 +43,7 @@ int binary_divide(int *array, size_t start, size_t end, int value)
 	if (array[mid] == value)
 		return (mid);
 	else if (array[mid] > value)
-		return (binary_divide(array, start, mid, value));
+		return (binary_divide(array, start, mid - 1, value));
 	else
 		return (binary_divide(array, mid + 1, end, value));
 }
